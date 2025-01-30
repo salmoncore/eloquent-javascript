@@ -39,3 +39,18 @@ console.log(new Vec(1, 2).minus(new Vec(2, 3)));
 // → Vec{x: -1, y: -1}
 console.log(new Vec(3, 4).length);
 // → 5
+
+console.log("\n6.2: Groups\n");
+
+// Write a class called "Group" that acts like a set.
+// It has add, delete, and has methods. Its
+// constructor creates an empty group, add adds
+// a value to the group if it doesn't exist, and has
+// returns a bool value indicating whether it exists.
+
+// Compare values with ===.
+// Give the class a static from method that takes an
+// iterable object as its argument and creates a group 
+// that contains all the values produced by iterating
+// over it.
+
