@@ -70,6 +70,23 @@ class Group {
 
         return new Group(buffer);
     }
+
+    has (val) {
+        if (this.group.includes(val)) return true;
+        return false;
+    }
+
+    add (val) {
+        if (!this.group.includes(val)) this.group.push(val);
+    }
+
+    delete (val) {
+        for (let i = 0; i < this.group.length; i++) {
+            if (this.group[i] === val) {
+                this.group.splice(i, 1);
+            }
+        }
+    }
 }
 
 let group = Group.from([10, 20]);
