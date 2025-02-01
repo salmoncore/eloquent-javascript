@@ -54,3 +54,30 @@ console.log("\n6.2: Groups\n");
 // that contains all the values produced by iterating
 // over it.
 
+class Group {
+    constructor(group) {
+        this.group = group;
+    }
+
+    static from (array) {
+        let buffer = [];
+
+        for (let i = 0; i < array.length; i++) {
+            if (!buffer.includes(array[i])) {
+                buffer.push(array[i]);
+            }
+        }
+
+        return new Group(buffer);
+    }
+}
+
+let group = Group.from([10, 20]);
+console.log(group.has(10));
+// → true
+console.log(group.has(30));
+// → false
+group.add(10);
+group.delete(10);
+console.log(group.has(10));
+// → false
