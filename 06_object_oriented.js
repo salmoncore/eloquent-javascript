@@ -59,7 +59,7 @@ class Group {
         this.group = group;
     }
 
-    static from (array) {
+    static from(array) {
         let buffer = [];
 
         for (let i = 0; i < array.length; i++) {
@@ -71,16 +71,31 @@ class Group {
         return new Group(buffer);
     }
 
-    has (val) {
+    [Symbol.iterator]() {
+        let group = this.group;
+        let index = 0;
+
+        return{
+            next() {
+                if (index >= group.length) {
+                    return {done: true};
+                } else {
+                    return {value: group[index++], done: false};
+                }
+            }
+        };
+    }
+
+    has(val) {
         if (this.group.includes(val)) return true;
         return false;
     }
 
-    add (val) {
+    add(val) {
         if (!this.group.includes(val)) this.group.push(val);
     }
 
-    delete (val) {
+    delete(val) {
         for (let i = 0; i < this.group.length; i++) {
             if (this.group[i] === val) {
                 this.group.splice(i, 1);
@@ -98,3 +113,20 @@ group.add(10);
 group.delete(10);
 console.log(group.has(10));
 // → false
+
+console.log("\n6.3: Iterable Groups\n");
+
+// Make the "Group" class from the previous exercise iterable.
+
+// I couldn't get the book example to work, so I adapted a
+// solution from Stack Overflow:
+// https://stackoverflow.com/questions/48132121/how-to-make-iterable-object-in-javascript
+
+// Seeing the solution wasn't a huge help either?
+
+for (let value of Group.from(["a", "b", "c"])) {
+    console.log(value);
+}
+// → a
+// → b
+// → c
