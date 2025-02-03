@@ -122,7 +122,8 @@ console.log("\n6.3: Iterable Groups\n");
 // solution from Stack Overflow:
 // https://stackoverflow.com/questions/48132121/how-to-make-iterable-object-in-javascript
 
-// Seeing the solution wasn't a huge help either?
+// Reviewing the solution - oh, that's clever, but I'm satisfied
+// with this implementation.
 
 for (let value of Group.from(["a", "b", "c"])) {
     console.log(value);
