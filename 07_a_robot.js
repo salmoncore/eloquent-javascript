@@ -81,21 +81,43 @@ function runRobot(state, robot, memory) {
 }
 
 function oneTrackMindRobot({ place, parcels }, route) {
-  if (route.length == 0) { // If no route, decide where to go
-    // See if there are still parcels to collect
-    let toCollect = parcels.filter(p => p.place != place);
-    
-    if (toCollect.length > 0) {
-      // Get route to next uncollected parcel
-      let parcel = toCollect[0];
-      route = findRoute(roadGraph, place, parcel.place); // Get parcel
-    } else {
-      // All parcels are collected, deliver them one by one
-      let parcel = parcels[0];
-      route = findRoute(roadGraph, place, parcel.address); // Delivers
+    if (route.length == 0) { // If no route, decide where to go
+        // See if there are still parcels to collect
+        let toCollect = parcels.filter(p => p.place != place);
+
+        if (toCollect.length > 0) {
+            // Get route to next uncollected parcel
+            let parcel = toCollect[0];
+            route = findRoute(roadGraph, place, parcel.place); // Get parcel
+        } else {
+            // All parcels are collected, deliver them one by one
+            let parcel = parcels[0];
+            route = findRoute(roadGraph, place, parcel.address); // Delivers
+        }
     }
-  }
-  return { direction: route[0], memory: route.slice(1) };
+    return { direction: route[0], memory: route.slice(1) };
 }
 
 compareRobots(oneTrackMindRobot, [], goalOrientedRobot, []);
+
+// You can also just run the animation with this:
+
+function oneTrackMindRobot({ place, parcels }, route) {
+    if (route.length == 0) { // If no route, decide where to go
+        // See if there are still parcels to collect
+        let toCollect = parcels.filter(p => p.place != place);
+
+        if (toCollect.length > 0) {
+            // Get route to next uncollected parcel
+            let parcel = toCollect[0];
+            route = findRoute(roadGraph, place, parcel.place); // Get parcel
+        } else {
+            // All parcels are collected, deliver them one by one
+            let parcel = parcels[0];
+            route = findRoute(roadGraph, place, parcel.address); // Delivers
+        }
+    }
+    return { direction: route[0], memory: route.slice(1) };
+}
+
+runRobotAnimation(VillageState.random(), oneTrackMindRobot, []);
