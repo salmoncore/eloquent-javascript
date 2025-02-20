@@ -1,4 +1,4 @@
-console.log("7.1: Measuring a Robot\n");
+//console.log("7.1: Measuring a Robot\n");
 
 // Still need to import the rest of the functionality for running robots from the site,
 // for now, this can be pasted into https://eloquentjavascript.net/code/#7.1
@@ -36,9 +36,9 @@ function runRobot(state, robot, memory) {
     }
 }
 
-compareRobots(routeRobot, [], goalOrientedRobot, []);
+//compareRobots(routeRobot, [], goalOrientedRobot, []);
 
-console.log("\n7.2: Robot Efficiency\n");
+//console.log("\n7.2: Robot Efficiency\n");
 
 // By collecting all packages and /then/ delivering, the
 // overall robot efficiency is slightly increased.
@@ -98,7 +98,7 @@ function oneTrackMindRobot({ place, parcels }, route) {
     return { direction: route[0], memory: route.slice(1) };
 }
 
-compareRobots(oneTrackMindRobot, [], goalOrientedRobot, []);
+//compareRobots(oneTrackMindRobot, [], goalOrientedRobot, []);
 
 // You can also just run the animation with this:
 
@@ -120,4 +120,51 @@ function oneTrackMindRobot({ place, parcels }, route) {
     return { direction: route[0], memory: route.slice(1) };
 }
 
-runRobotAnimation(VillageState.random(), oneTrackMindRobot, []);
+//runRobotAnimation(VillageState.random(), oneTrackMindRobot, []);
+
+console.log("\n7.3: Persistent Group\n");
+
+// Write a new class PGroup which stores a set of values and has operations for the data.
+// It should have add, delete, and has methods.
+// Adding should return a NEW PGroup instance with the new value added.
+// Deletion should create a new instance as well, with the specified value removed.
+// This class should work for any type, not just strings.
+// The constructor shouldn't be a part of the class's interface.
+// PGroup.empty should be used as a starting value.
+
+class PGroup {
+    constructor(arr) {
+        this.arr = arr; // Instance property storing arr
+    }
+
+    has(val) {
+        return this.arr.includes(val);
+    }
+
+    add(valToAdd) {
+        if (this.arr.includes(valToAdd)) {
+            return this;
+        }
+        return new PGroup([...this.arr, valToAdd]);
+    }
+
+    delete(valToRemove) {
+        if (!this.arr.includes(valToRemove)) {
+            return this;
+        }
+        return new PGroup(this.arr.filter((value) => value != valToRemove));
+    }
+}
+
+PGroup.empty = new PGroup([]);
+
+let a = PGroup.empty.add("a");
+let ab = a.add("b");
+let b = ab.delete("a");
+
+console.log(b.has("b"));
+// → true
+console.log(a.has("b"));
+// → false
+console.log(b.has("a"));
+// → false
