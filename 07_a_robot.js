@@ -1,6 +1,6 @@
-//console.log("7.1: Measuring a Robot\n");
+console.log("7.1: Measuring a Robot\n");
 
-// Still need to import the rest of the functionality for running robots from the site,
+// I didn't get around to implementing the data from the book for the village state,
 // for now, this can be pasted into https://eloquentjavascript.net/code/#7.1
 
 function compareRobots(robot1, memory1, robot2, memory2) {
