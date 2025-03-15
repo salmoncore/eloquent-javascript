@@ -78,3 +78,55 @@ function reliableMultiply(a, b) {
 
 console.log(reliableMultiply(8, 8));
 // → 64
+
+console.log("\n8.2: The Locked Box\n");
+
+const box = new class {
+    locked = true;
+    #content = [];
+
+    unlock() { this.locked = false; }
+    lock() { this.locked = true; }
+    get content() {
+        if (this.locked) throw new Error("Locked!");
+        return this.#content;
+    }
+};
+
+function withBoxUnlocked(body) {
+    // unlock the box
+    // run body 
+    // lock the box again via finally
+    // if body returns error, catch
+
+    lockFlag = false;
+
+    if (box.locked == true) {
+        box.unlock();
+        lockFlag = true;
+    }
+    
+    try {
+        body();
+    } catch (e) {
+        console.log(e);
+    } finally {
+        if (lockFlag) {
+            box.lock();
+        }
+    }
+}
+
+withBoxUnlocked(() => {
+    box.content.push("gold piece");
+});
+
+try {
+    withBoxUnlocked(() => {
+        throw new Error("Pirates on the horizon! Abort!");
+    });
+} catch (e) {
+    console.log("Error raised: " + e);
+}
+console.log(box.locked);
+// → true
